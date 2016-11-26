@@ -24,9 +24,9 @@ public class GetBKP extends CordovaPlugin {
     public GetBKP() {};
 
     @Override
-    public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException, UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, SignatureException {
+    public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if (action.equals("getKey")) {
-            JSONObject result = getKey(args.getString(0), args.getString(1));
+            JSONObject result = getKey(args);
             callbackContext.success(result);
         } else {
             return false;
@@ -34,10 +34,10 @@ public class GetBKP extends CordovaPlugin {
         return true;
     }
 
-    private JSONObject getKey(String result, String cert) throws NoSuchAlgorithmException, SignatureException, InvalidKeyException, UnsupportedEncodingException, InvalidKeySpecException, JSONException {
+    private JSONObject getKey(JSONArray args) throws NoSuchAlgorithmException, SignatureException, InvalidKeyException, UnsupportedEncodingException, InvalidKeySpecException, JSONException {
 
-//        String result = args[0]; //"CZ00000019|273|/5546/RO24|0/6460/ZQ42|2016-01-05T00:30:12+01:00|34113.00";
-//        String cert = args[1]; //MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDFCIfnLl3YjNyxM3y2FAVovKQMetfyyj/lfLY3DoN1z/8gaVRfcqTZbwh9Btg0HafSmrWBvfgjEC/pG9HNawYZ9nPE+WIP9bXkoOfDTmmVtX4n6OLi2Di+U7+FmPJzykV0ujsOsfcGnQ0f63xZYoGJIwLJuz3gmAF//DfnOeTT7OUZeOKobBSYkQOKv1j05QqQZ7HP+5oq7+hNylFrjuEi5OAeVgJAYScE4COvcpqPKpb7OeR9f78knYFffg5zp/6bi6qkP5uGYEuuQvbW1mATjoqbAWz8c7HNA56uNFlz8V+z9bL0f/xwQjgy4d+5qelTX46tq0vJ2XM9dJaF8ytJAgMBAAECggEAcZ9ex9k8MyHgLqvTUiividum+q9oktFBEbTeW1eaRblBlc5H4pb5K45VJcxpp3wmiFPBMeV8D7RI/LOXRE9ggF5YGpH5k9yNHSARJta0GqpD6v3owQoRhuhCvOcbgdx2Oz8dyXalToIIzIx+9AjTTGMNO4onv7nIu6aWEliXdgHVvqisMpf6GZ6O5JnwFpR4NAZSqFEDHPJUiSa6s/oyecz/4oSqcla2zla6nCHb6m83vvb4jQ/AaoFfbCFv+oLJyZlJPGGHVyp1fvMnKV+OmLVaE7E78vXfvMvl3VHCi00phi3gPstjgSOqEsBWXGgoBIuvfdJkhOcBfWf5m90EgQKBgQDyaGnaCZuCSkb5axx7rpTQjdoBaOQcnnHVF9RrOBdH3E6ZJWrxBCi3N7Aivk2AAzUBTiKb/uRtf35fbeCiSmjXbVMjX42xFEPiJVEjqJRzmphqci/5Hq6PfB423a1TX4vECF/NRb9xbtp1IjqD9IkwUNG/Bx/BqPWq75P7FrTrmQKBgQDQFMyaxNBx47FzZmVVc2w3mF1fxv1m3t8o6RxT4G22eHczkZ8pOJT1UYCM8wnVEQPXmNGt85EdS7kkD4Imkyfc52MmX0pQNbDJXDvJYd5ZlQZ/zC9maY3ef+GZ2chs1j/0PA9Y9dvKro325RiGz+a+TWKutpRNbwqpOvLJrFaLMQKBgAtpKNpvq1dVwcOJ7DxSOoUauFFqq5pBRyB9z60AZfAnCbghz8fqpzQAthTcmm9VN1CJag2n0P7qintZg8J/+DFz3v8CR3w3dP6XPRuNmvdaJqSUHXf/nr34XL++baNIEx82ObRC/UEMs9Hhu5lskGyq0UTJxA/ssSvLvU6Lgha5AoGBAKo0CTSjvrkZ/WGepU7jTeaf2+jnFQnbTgDhxQka78MtAJwPBniqTrXnh9ZDSoydEV5+Iy09qTqkYPmNMfGptxarsl+F3HyFnmjm6ASO6FiwXJOWikMkHiacxgWZrabRDZkSs58Z5EICzB7jQE+tqVmKZSjyMZaxOLA6hrPOIzBRAoGAEwGiWaDbGxUoOzXsiF58CP2VuibPIYwMwJab9bPYphW2js6MGl34S5KQLjLRQldIoW0S7m/dACF2S4ba9DSefvbegDaZIc/GcZQzmZdpk1RfXJPofctuHAWxPkrA3JAD8uu31FnKLuaX31+THflznF6OfC6QUHjZJL/WrbiUMBM=";
+        String result = args.get(0).toString(); //"CZ00000019|273|/5546/RO24|0/6460/ZQ42|2016-01-05T00:30:12+01:00|34113.00";
+        String cert = args.get(1).toString(); //MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDFCIfnLl3YjNyxM3y2FAVovKQMetfyyj/lfLY3DoN1z/8gaVRfcqTZbwh9Btg0HafSmrWBvfgjEC/pG9HNawYZ9nPE+WIP9bXkoOfDTmmVtX4n6OLi2Di+U7+FmPJzykV0ujsOsfcGnQ0f63xZYoGJIwLJuz3gmAF//DfnOeTT7OUZeOKobBSYkQOKv1j05QqQZ7HP+5oq7+hNylFrjuEi5OAeVgJAYScE4COvcpqPKpb7OeR9f78knYFffg5zp/6bi6qkP5uGYEuuQvbW1mATjoqbAWz8c7HNA56uNFlz8V+z9bL0f/xwQjgy4d+5qelTX46tq0vJ2XM9dJaF8ytJAgMBAAECggEAcZ9ex9k8MyHgLqvTUiividum+q9oktFBEbTeW1eaRblBlc5H4pb5K45VJcxpp3wmiFPBMeV8D7RI/LOXRE9ggF5YGpH5k9yNHSARJta0GqpD6v3owQoRhuhCvOcbgdx2Oz8dyXalToIIzIx+9AjTTGMNO4onv7nIu6aWEliXdgHVvqisMpf6GZ6O5JnwFpR4NAZSqFEDHPJUiSa6s/oyecz/4oSqcla2zla6nCHb6m83vvb4jQ/AaoFfbCFv+oLJyZlJPGGHVyp1fvMnKV+OmLVaE7E78vXfvMvl3VHCi00phi3gPstjgSOqEsBWXGgoBIuvfdJkhOcBfWf5m90EgQKBgQDyaGnaCZuCSkb5axx7rpTQjdoBaOQcnnHVF9RrOBdH3E6ZJWrxBCi3N7Aivk2AAzUBTiKb/uRtf35fbeCiSmjXbVMjX42xFEPiJVEjqJRzmphqci/5Hq6PfB423a1TX4vECF/NRb9xbtp1IjqD9IkwUNG/Bx/BqPWq75P7FrTrmQKBgQDQFMyaxNBx47FzZmVVc2w3mF1fxv1m3t8o6RxT4G22eHczkZ8pOJT1UYCM8wnVEQPXmNGt85EdS7kkD4Imkyfc52MmX0pQNbDJXDvJYd5ZlQZ/zC9maY3ef+GZ2chs1j/0PA9Y9dvKro325RiGz+a+TWKutpRNbwqpOvLJrFaLMQKBgAtpKNpvq1dVwcOJ7DxSOoUauFFqq5pBRyB9z60AZfAnCbghz8fqpzQAthTcmm9VN1CJag2n0P7qintZg8J/+DFz3v8CR3w3dP6XPRuNmvdaJqSUHXf/nr34XL++baNIEx82ObRC/UEMs9Hhu5lskGyq0UTJxA/ssSvLvU6Lgha5AoGBAKo0CTSjvrkZ/WGepU7jTeaf2+jnFQnbTgDhxQka78MtAJwPBniqTrXnh9ZDSoydEV5+Iy09qTqkYPmNMfGptxarsl+F3HyFnmjm6ASO6FiwXJOWikMkHiacxgWZrabRDZkSs58Z5EICzB7jQE+tqVmKZSjyMZaxOLA6hrPOIzBRAoGAEwGiWaDbGxUoOzXsiF58CP2VuibPIYwMwJab9bPYphW2js6MGl34S5KQLjLRQldIoW0S7m/dACF2S4ba9DSefvbegDaZIc/GcZQzmZdpk1RfXJPofctuHAWxPkrA3JAD8uu31FnKLuaX31+THflznF6OfC6QUHjZJL/WrbiUMBM=";
 
         byte[] data = Base64.decode(cert);
         PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(data);
